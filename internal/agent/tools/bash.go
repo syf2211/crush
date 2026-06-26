@@ -428,8 +428,8 @@ func TruncateOutput(content string) string {
 	}
 
 	halfLength := MaxOutputLength / 2
-	start := content[:halfLength]
-	end := content[len(content)-halfLength:]
+	start := strings.ToValidUTF8(content[:halfLength], "")
+	end := strings.ToValidUTF8(content[len(content)-halfLength:], "")
 
 	truncatedLinesCount := countLines(content[halfLength : len(content)-halfLength])
 	return fmt.Sprintf("%s\n\n... [%d lines truncated] ...\n\n%s", start, truncatedLinesCount, end)
